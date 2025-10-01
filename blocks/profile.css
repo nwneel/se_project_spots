@@ -15,8 +15,20 @@
   flex-direction: column;
 }
 
+.profile__add-btn {
+  margin-top: auto;
+}
+
+.profile__add-btn:hover {
+  cursor: pointer;
+}
+
 .profile__edit-btn {
   margin-top: auto;
+}
+
+.profile__edit-btn:hover {
+  cursor: pointer;
 }
 
 .profile__name {
@@ -27,7 +39,6 @@
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   max-width: 420px;
 }
@@ -37,7 +48,6 @@
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   max-width: 420px;
 }
