@@ -3,6 +3,7 @@
 }
 
 .card__image {
+  border-radius: 8px;
   height: 413px;
   width: 413px;
   object-fit: cover;
@@ -11,7 +12,10 @@
 
 .card__content {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  margin-top: 12px;
+  align-items: center;
 }
 
 .card__like-btn {
@@ -24,16 +28,14 @@
 }
 
 .card__title {
+  margin: 0;
   font-weight: 500;
-  font-style: Medium;
   font-size: 20px;
-  padding-bottom: NONE;
   line-height: 120%;
-  letter-spacing: 0%;
 }
 
 @media screen and (max-width: 627px) {
   .card__image {
-    height: 288px;
+    height: 413px;
   }
 }
