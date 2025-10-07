@@ -1,5 +1,7 @@
 .footer {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
-  padding: 40px;
+  padding: 60px 0;
   text-align: center;
+  color: #212121;
+  opacity: 70%;
 }
