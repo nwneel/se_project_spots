@@ -15,7 +15,6 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 12px;
-  align-items: center;
 }
 
 .card__like-btn {
@@ -27,6 +26,10 @@
   opacity: 40%;
 }
 
+.card__like-btn:hover {
+  cursor: pointer;
+}
+
 .card__title {
   margin: 0;
   font-weight: 500;
@@ -36,6 +39,6 @@
 
 @media screen and (max-width: 627px) {
   .card__image {
-    width: 288px;
+    width: 100%;
   }
 }

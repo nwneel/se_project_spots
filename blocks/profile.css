@@ -31,6 +31,7 @@
 
 .profile__add-btn:hover {
   cursor: pointer;
+  opacity: 0.8;
 }
 
 .profile__edit-btn {
@@ -46,10 +47,7 @@
 
 .profile__edit-btn:hover {
   cursor: pointer;
-}
-
-.profile__edit-btn:hover {
-  cursor: pointer;
+  opacity: 0.8;
 }
 
 .profile__name {
@@ -91,11 +89,6 @@
   .profile__name {
     font-size: 20px;
     margin: 0 0 32px;
-    max-width: 288px;
-  }
-
-  .profile__description {
-    max-width: 0 0 32px;
     max-width: 288px;
   }
 

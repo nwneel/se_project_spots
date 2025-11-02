@@ -25,8 +25,9 @@ const newPostSubmitBtn = document.querySelector("#new-post-submit");
 // });
 
 // instead of setting up a click event listener on the submit button, it's
-//bestter practice to set up a submit event listener on the form (that contains that submit button)
-newPostForm.addEventListener("submit", function () {
+//better practice to set up a submit event listener on the form (that contains that submit button)
+newPostForm.addEventListener("submit", function (evt) {
+  evt.preventDefault();
   console.log(newPostImageInput.value);
   console.log(newPostCaptionInput.value);
 });
