@@ -45,6 +45,14 @@ editProfileCloseBtn.addEventListener("click", function () {
   editProfileModal.classList.remove("modal_is-opened");
 });
 
+function openModal(modal) {
+  modal.classList.add("modal_is-opened");
+}
+
+function closeModal(modal) {
+  modal.classList.remove("modal_is-opened");
+}
+
 const postImageEl = document.querySelector(".card__image");
 const postCaptionEl = document.querySelector(".modal__input");
 
