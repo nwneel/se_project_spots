@@ -26,11 +26,12 @@ const newPostSubmitBtn = document.querySelector("#new-post-submit");
 
 // instead of setting up a click event listener on the submit button, it's
 //better practice to set up a submit event listener on the form (that contains that submit button)
-newPostForm.addEventListener("submit", function (evt) {
+function handleNewPostSubmit(evt) {
   evt.preventDefault();
   console.log(newPostImageInput.value);
   console.log(newPostCaptionInput.value);
-});
+  closeModal(newPostModal);
+}
 
 const profileNameEl = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");
@@ -42,7 +43,7 @@ editProfileBtn.addEventListener("click", function () {
 });
 
 editProfileCloseBtn.addEventListener("click", function () {
-  editProfileModal.classList.remove("modal_is-opened");
+  openModal(editProfileModal);
 });
 
 function openModal(modal) {
@@ -57,25 +58,25 @@ const postImageEl = document.querySelector(".card__image");
 const postCaptionEl = document.querySelector(".modal__input");
 
 newPostBtn.addEventListener("click", function () {
-  newPostModal.classList.add("modal_is-opened");
+  openModal(newPostModal);
 });
 
 newPostCloseBtn.addEventListener("click", function () {
-  newPostModal.classList.remove("modal_is-opened");
+  closeModal(newPostModal);
 });
 
 function handleEditProfileSubmit(evt) {
   evt.preventDefault();
   profileNameEl.textContent = editProfileNameInput.value;
   profileDescriptionEl.textContent = editProfileDescriptionInput.value;
-  editProfileModal.classList.remove("modal_is-opened");
+  newPostModal.classList.remove("modal_is-opened");
 }
 
 function handleNewPostSubmit(evt) {
   evt.preventDefault();
-  postImageEl.value = newPostImageInput.value;
-  postCaptionEl.value = newPostCaptionInput.value;
-  newPostModal.classList.remove("modal_is-opened");
+  console.log(newPostImageInput.value);
+  console.log(newPostCaptionInput.value);
+  closeModal(newPostModal);
 }
 
 editProfileForm.addEventListener("submit", handleEditProfileSubmit);
