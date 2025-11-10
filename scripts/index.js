@@ -30,6 +30,7 @@ function handleNewPostSubmit(evt) {
   evt.preventDefault();
   console.log(newPostImageInput.value);
   console.log(newPostCaptionInput.value);
+  closeModal(newPostModal);
   newPostForm.reset();
 }
 
