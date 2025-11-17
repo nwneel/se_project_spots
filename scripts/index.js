@@ -1,3 +1,11 @@
+const intialCardsName = [
+  "Val Thorens",
+  "Restaurant terrace",
+  "An outdoor cafe",
+  "A very long bridge, over the forest and through the trees",
+  "Tunnel with morning light",
+  "Mountain house",
+];
 const intialCards = [
   {
     name: "Val Thorens",
