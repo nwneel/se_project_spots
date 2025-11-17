@@ -1,4 +1,4 @@
-const intialCards = [
+const initialCards = [
   {
     name: "Val Thorens",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
@@ -104,7 +104,7 @@ function handleEditProfileSubmit(evt) {
 editProfileForm.addEventListener("submit", handleEditProfileSubmit);
 newPostForm.addEventListener("submit", handleNewPostSubmit);
 
-intialCards.forEach(function (item) {
+initialCards.forEach(function (item) {
   console.log(item.name);
   console.log(item.link);
 });
