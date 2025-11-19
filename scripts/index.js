@@ -46,6 +46,13 @@ const newPostCaptionInput = newPostModal.querySelector(
 );
 const newPostSubmitBtn = document.querySelector("#new-post-submit");
 
+function openModal(modal) {
+  modal.classList.add("modal_is-opened");
+}
+
+function closeModal(modal) {
+  modal.classList.remove("model_is-opened");
+}
 // newPostSubmitBtn.addEventListener("click", function () {
 //   console.log(newPostImageInput.value);
 //   console.log(newPostCaptionInput.value);
