@@ -10,9 +10,6 @@
   width: 100%;
   object-fit: cover;
   display: block;
-}
-
-.card__image:hover {
   cursor: pointer;
   opacity: 1;
 }
@@ -30,8 +27,9 @@
   height: 20px;
   border: none;
   background-color: transparent;
-  opacity: 40%;
+  opacity: 0.4;
   cursor: pointer;
+  background-repeat: no-repeat;
 }
 
 .card__like-btn_active {
