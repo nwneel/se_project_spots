@@ -68,7 +68,6 @@
 
 .modal__submit-btn:hover {
   cursor: pointer;
-  background-color: #212121;
 }
 
 .modal__title {
@@ -107,13 +106,13 @@
   background: #212121;
   font-family: Poppins;
   font-weight: 500;
-  font-style: Medium;
   font-size: 20px;
   line-height: 120%;
   letter-spacing: 0%;
   border-radius: 8px;
-  width: 198px;
+  width: fit-content;
   height: 24px;
+  display: flex;
 }
 
 .modal__image-container {
