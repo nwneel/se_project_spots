@@ -58,6 +58,7 @@
 }
 
 .card__delete-btn:hover {
+  background-image: url(../images/Delete-button-active.svg);
   opacity: 0.4;
 }
 
