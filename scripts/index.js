@@ -104,6 +104,8 @@ function closeModal(modal) {
 const postImageEl = document.querySelector(".card__image");
 const postCaptionEl = document.querySelector(".modal__input");
 
+//add event listener to make sure a modal opens and closes. To open up an image by clicking it only use a close modal
+
 newPostBtn.addEventListener("click", function () {
   openModal(newPostModal);
 });
@@ -113,6 +115,8 @@ newPostCloseBtn.addEventListener("click", function () {
 });
 
 editProfileBtn.addEventListener("click", function () {
+  editProfileNameInput.value = profileNameEl.textContent;
+  editProfileDescriptionInput.value = profileDescriptionEl.textContent;
   openModal(editProfileModal);
 });
 
