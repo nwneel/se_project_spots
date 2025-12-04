@@ -46,7 +46,7 @@
 }
 
 .card__delete-btn {
-  background-image: url(../images/Delete.svg);
+  background-image: url("../images/Delete.svg");
   width: 32px;
   height: 32px;
   position: absolute;
@@ -58,7 +58,7 @@
 }
 
 .card__delete-btn:hover {
-  background-image: url(../images/Delete-button-active.svg);
+  background-image: url("../images/Delete-button-active.svg");
   opacity: 0.4;
 }
 
