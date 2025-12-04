@@ -1,6 +1,7 @@
 .modal {
-  transition: 0.3s;
   visibility: hidden;
+  opacity: 0;
+  transition: 0.3s ease-in-out, 0s linear 0.3s;
   background-color: #00000080;
   position: fixed;
   top: 0;
@@ -11,13 +12,12 @@
   justify-content: center;
   align-items: center;
   padding: 0 10px;
-  opacity: 0.3s ease-in;
 }
 
 .modal_is-opened {
   visibility: visible;
-  transition-delay: 0s;
   opacity: 1;
+  transition-delay: 0s;
 }
 
 .modal__container {
@@ -32,7 +32,7 @@
 
 .modal__close-btn {
   position: absolute;
-  background: transparent url("../images/CloseIcon.svg") center no-repeat;
+  background: transparent url("../images/Close-Icon.svg") center no-repeat;
   top: 32px;
   right: 50px;
   width: 40px;
@@ -50,6 +50,7 @@
 }
 
 .modal_close_type_preview {
+  background: url("../images/CloseIconactive.svg");
   top: 0;
   right: -52.5px;
   background-color: transparent;
@@ -65,9 +66,11 @@
   width: 156px;
   background-color: #212121;
   color: #fcf5e5;
+  border: none;
 }
 
 .modal__submit-btn:hover {
+  background: #212121cc;
   cursor: pointer;
 }
 
@@ -171,7 +174,7 @@
     right: 12px;
   }
 
-  .modal_close-btn_type_preview {
+  .modal_close_type_preview {
     top: -48px;
     right: 0;
   }

@@ -27,6 +27,7 @@
   line-height: 100%;
   color: #fcf5e5;
   border-radius: 8px;
+  border: none;
 }
 
 .profile__add-btn:hover {
