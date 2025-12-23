@@ -75,6 +75,8 @@
 }
 
 .modal__title {
+  width: 169px;
+  height: 32px;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   margin: 0 0 32px;
   font-weight: 500;
@@ -102,10 +104,6 @@
   box-sizing: border-box;
 }
 
-.modal__input_type_error {
-  color: #ff000099;
-}
-
 .modal__input::placeholder {
   color: #21212166;
 }
@@ -116,7 +114,6 @@
   color: #ff0000b2;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-weight: 500;
-  font-style: Medium;
   font-size: 16px;
   line-height: 110.00000000000001%;
   letter-spacing: 0%;
@@ -133,7 +130,6 @@
   letter-spacing: 0%;
   border-radius: 8px;
   width: fit-content;
-  height: 24px;
   display: flex;
 }
 
@@ -178,8 +174,8 @@
     height: 20px;
     font-family: "Poppins", Arial, Helvetica, sans-serif;
     font-weight: 500;
-    font-style: Medium;
     font-size: 20px;
+    font-style: medium;
     line-height: 100%;
     justify-content: space-between;
   }
@@ -187,7 +183,7 @@
   .modal__close-btn {
     width: 40px;
     height: 40px;
-    opacity: 40%;
+    opacity: 0.4;
     top: 12px;
     right: 12px;
   }

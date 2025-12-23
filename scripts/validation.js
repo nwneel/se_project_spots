@@ -3,7 +3,6 @@ const settings = {
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__submit-btn",
   inactiveButtonClass: "modal__close-btn",
-  inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error",
 };
 
