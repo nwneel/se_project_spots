@@ -26,5 +26,9 @@ Good luck and have fun!
 
 ## Project Pitch Video
 
-Check out [this video](https://drive.google.com/file/d/1aEpY0mu1qFps0wQxYhWgCY6qJ5t-D9zi/view?usp=sharing), where I describe my
-project and some challenges I faced while building it.
+Check out these videos, where I describe my project
+and some challenges I faced while building it:
+
+- [Spots Stage 2](https://drive.google.com/file/d/1aEpY0mu1qFps0wQxYhWgCY6qJ5t-D9zi/view?usp=sharing)
+
+- [Spots Stage 9](https://drive.google.com/file/d/1bumzlcgFiiW2qa3DRAW_ysyuGtx_acLH/view?usp=drive_link)

@@ -1,3 +1,5 @@
+//TODO - pass settings object to validation functions that are called in this file
+
 const initialCards = [
   {
     name: "Golden Gate Bridge",
@@ -51,6 +53,9 @@ const newPostCaptionInput = newPostModal.querySelector(
   "#profile-caption-input"
 );
 const newPostSubmitBtn = document.querySelector("#new-post-submit");
+//
+const newPostImageEl = document.querySelector("#card-image-input");
+const newPostCaptionEl = document.querySelector("#profile-caption-input");
 
 const previewModal = document.querySelector("#preview-modal");
 const previewModalCloseBtn = previewModal.querySelector(".modal__close-btn");
@@ -105,8 +110,11 @@ const postImageEl = document.querySelector(".card__image");
 const postCaptionEl = document.querySelector(".modal__input");
 
 //add event listener to make sure a modal opens and closes. To open up an image by clicking it only use a close modal
-
+//resetValidation helps error message appear when there is an error
 newPostBtn.addEventListener("click", function () {
+  newPostImageInput.value = newPostImageEl.textContent;
+  newPostCaptionInput.value = newPostCaptionEl.textContent;
+  resetValidation(newPostForm, [newPostImageInput, newPostCaptionInput]); //??
   openModal(newPostModal);
 });
 
@@ -114,9 +122,14 @@ newPostCloseBtn.addEventListener("click", function () {
   closeModal(newPostModal);
 });
 
+//
 editProfileBtn.addEventListener("click", function () {
   editProfileNameInput.value = profileNameEl.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
+  resetValidation(editProfileForm, [
+    editProfileNameInput,
+    editProfileDescriptionInput,
+  ]);
   openModal(editProfileModal);
 });
 
