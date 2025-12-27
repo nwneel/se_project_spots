@@ -43,7 +43,6 @@ const toggleButtonState = (inputList, buttonEl, settings) => {
 };
 
 const disableButton = (buttonEl, config) => {
-  debugger;
   buttonEl.disabled = true;
   //To do: Add a modifier class to the buttonEl to make it grey
   //Don't forget the CSS
