@@ -12,7 +12,6 @@ module.exports = {
     filename: "main.js",
     publicPath: "",
   },
-
   mode: "development",
   devtool: "inline-source-map",
   stats: "errors-only",
@@ -54,6 +53,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+      favicon: "./src/images/favicon.ico", // path to the favicon
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
