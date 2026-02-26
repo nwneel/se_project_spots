@@ -1,4 +1,4 @@
-const settings = {
+export const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__submit-btn",
@@ -44,13 +44,8 @@ const toggleButtonState = (inputList, buttonEl, settings) => {
 
 const disableButton = (buttonEl, config) => {
   buttonEl.disabled = true;
-  //To do: Add a modifier class to the buttonEl to make it grey
-  //Don't forget the CSS
 };
 
-//TODO - Use the setting objects in all functions instead of hard coded strings
-
-//
 const resetValidation = (formEl, inputList, settings) => {
   console.log("resetting validation");
   inputList.forEach((input) => {
@@ -73,7 +68,7 @@ const setEventListenters = (formEl, config) => {
   });
 };
 
-const enableValidation = (config) => {
+export const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formEl) => {
     setEventListenters(formEl, config);

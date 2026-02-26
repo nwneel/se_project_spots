@@ -1,4 +1,5 @@
-//TODO - pass settings object to validation functions that are called in this file
+import "./index.css";
+import { enableValidation, settings } from "../scripts/validation.js";
 
 const initialCards = [
   {
@@ -36,10 +37,10 @@ const editProfileModal = document.querySelector("#edit-profile-modal");
 const editProfileCloseBtn = editProfileModal.querySelector(".modal__close-btn");
 const editProfileForm = editProfileModal.querySelector(".modal__form");
 const editProfileNameInput = editProfileModal.querySelector(
-  "#profile-name-input"
+  "#profile-name-input",
 );
 const editProfileDescriptionInput = editProfileModal.querySelector(
-  "#profile-description-input"
+  "#profile-description-input",
 );
 const profileNameEl = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");
@@ -50,7 +51,7 @@ const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
 const newPostForm = newPostModal.querySelector(".modal__form");
 const newPostImageInput = newPostModal.querySelector("#card-image-input");
 const newPostCaptionInput = newPostModal.querySelector(
-  "#profile-caption-input"
+  "#profile-caption-input",
 );
 const newPostSubmitBtn = document.querySelector("#new-post-submit");
 //
@@ -69,8 +70,11 @@ const cardTemplate = document
 const cardsList = document.querySelector(".cards__list");
 
 function getCardElement(data) {
+  //This creates a copy of the card template (which was defined on line 66-68). clone node(true)  makes a "deep clone" - meaning it copies the element AND all its children
   const cardElement = cardTemplate.cloneNode(true);
+  //This finds the title element inside the cloned card.
   const cardTitleEl = cardElement.querySelector(".card__title");
+  //This finds the image element inside the cloned card
   const cardImageEL = cardElement.querySelector(".card__image");
 
   cardImageEL.src = data.link;
@@ -86,7 +90,7 @@ function getCardElement(data) {
   cardDeleteBtnEl.addEventListener("click", () => {
     cardElement.remove();
   });
-
+  //Lines 90-96, you have an event listener on each card image that opens the preview modal
   cardImageEL.addEventListener("click", () => {
     previewImageEl.src = data.link;
     previewImageEl.alt = data.name;
