@@ -28,8 +28,9 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
+        type: "javascript/auto",
         loader: "babel-loader",
-        exclude: "/node_modules/",
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,

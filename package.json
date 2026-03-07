@@ -12,7 +12,6 @@
   },
   "license": "ISC",
   "author": "Nathan Neel",
-  "type": "commonjs",
   "main": "index.js",
   "devDependencies": {
     "@babel/core": "7.18.9",
