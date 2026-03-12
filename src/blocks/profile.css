@@ -35,6 +35,39 @@
   opacity: 0.8;
 }
 
+.profile__avatar-btn {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  visibility: hidden;
+  border: none;
+}
+
+/* TODO - set content of ::after element to "" */
+/* TODO - finish mobile avatar button styles */
+
+.profile__avatar-btn::after {
+  content: "Edit Avatar";
+  color: #ffffff;
+}
+
+.profile__avatar-container {
+  position: relative;
+  width: 190px;
+  height: 190px;
+}
+
+.profile__avatar-container:hover .profile__avatar-btn {
+  /* makes button visible when hovering over it */
+  visibility: visible;
+  cursor: pointer;
+  /* Makes the edit avatar button blend in with the picture */
+  background-color: transparent;
+}
+
 .profile__edit-btn {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   display: flex;

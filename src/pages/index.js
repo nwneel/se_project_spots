@@ -1,9 +1,13 @@
 import "./index.css";
+
 import {
   enableValidation,
   settings,
   resetValidation,
 } from "../scripts/validation.js";
+import { setButtonText } from "../utils/helpers.js";
+
+import Api from "../utils/Api.js";
 
 const initialCards = [
   {
@@ -36,8 +40,33 @@ const initialCards = [
   },
 ];
 
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "e2ecda29-0c34-4591-9c14-4974f13b0755",
+    "Content-Type": "application/json",
+  },
+});
+
+//Todo - Destructure the second item in the callback of the .then()
+api
+  .getAppInfo()
+  .then((cards) => {
+    cards.forEach(function (item) {
+      const cardElement = getCardElement(item);
+      cardsList.append(cardElement);
+    });
+
+    //TODO-Handle the user's information
+    // - set the src of the avatar image
+    // - set the textContent of both the text elements
+  })
+  .catch(console.error);
+
+//Profile elements
 const editProfileBtn = document.querySelector(".profile__edit-btn");
-const editProfileModal = document.querySelector("#edit-profile-modal");
+const editProfileModal = document.querySelector(".profile__avatar-btn");
+const avatarModalBtn = document.querySelector(".profile__avatar-btn");
 const editProfileCloseBtn = editProfileModal.querySelector(".modal__close-btn");
 const editProfileForm = editProfileModal.querySelector(".modal__form");
 const editProfileNameInput = editProfileModal.querySelector(
@@ -48,7 +77,7 @@ const editProfileDescriptionInput = editProfileModal.querySelector(
 );
 const profileNameEl = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");
-
+//New post elements
 const newPostBtn = document.querySelector(".profile__add-btn");
 const newPostModal = document.querySelector("#new-post-modal");
 const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
@@ -68,10 +97,21 @@ const previewImageEl = previewModal.querySelector(".modal__image");
 const previewModalCaptionInput = previewModal.querySelector(".modal__caption");
 // To Do-Select the name element
 
-const cardTemplate = document
-  .querySelector("#card-template")
-  .content.querySelector(".card");
+//Avatar form elements
+const avatarModal = document.querySelector("#avatar-modal");
+const avatarForm = avatarModal.querySelector("#avatar");
+const avatarSubmitBtn = avatarModal.querySelector(".modal__submit-btn");
+const avatarModalCloseBtn = avatarModal.querySelector(".modal__close-btn");
+const avatarInput = avatarModal.querySelector("#profile-avatar-input");
+
+//Delete form elements
+const deleteModal = document.querySelector("delete-modal");
+const deleteForm = deleteModal.querySelector("modal__form");
+
+const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
+
+let selectedCard, selectedCardId;
 
 function getCardElement(data) {
   //This creates a copy of the card template (which was defined on line 66-68). clone node(true)  makes a "deep clone" - meaning it copies the element AND all its children
@@ -81,6 +121,7 @@ function getCardElement(data) {
   //This finds the image element inside the cloned card
   const cardImageEL = cardElement.querySelector(".card__image");
 
+  //TODO - if the card is liked, set the active class on the card
   cardImageEL.src = data.link;
   cardImageEL.alt = data.name;
   cardTitleEl.textContent = data.name;
@@ -104,6 +145,19 @@ function getCardElement(data) {
   });
 
   return cardElement;
+}
+
+function handleLike(evt, id) {
+  //remove - evt.target.classList.toggle("card__like-button_active");
+  // 1. Check whether card is currently liked or not
+  // const isLiked = ???;
+  // 2. Call the changeLikeStatus method, passing it the appropriate arguments
+  // 3. handle the response (.then and .catch)
+  // 4. In the .then, toggle active class
+}
+
+function handleDeleteCard(evt) {
+  openModal(deleteModal);
 }
 
 function handleEscapeKey(evt) {
@@ -136,12 +190,12 @@ function closeModal(modal) {
 const postImageEl = document.querySelector(".card__image");
 const postCaptionEl = document.querySelector(".modal__input");
 
-//add event listener to make sure a modal opens and closes. To open up an image by clicking it only use a close modal
+//adds event listener to make sure a modal opens and closes. To open up an image by clicking it only use a close modal
 //resetValidation helps error message appear when there is an error
 newPostBtn.addEventListener("click", function () {
   newPostImageInput.value = newPostImageEl.textContent;
   newPostCaptionInput.value = newPostCaptionEl.textContent;
-  resetValidation(newPostForm, [newPostImageInput, newPostCaptionInput]); //??
+  resetValidation(newPostForm, [newPostImageInput, newPostCaptionInput]);
   openModal(newPostModal);
 });
 
@@ -149,7 +203,13 @@ newPostCloseBtn.addEventListener("click", function () {
   closeModal(newPostModal);
 });
 
-//
+avatarModalBtn.addEventListener("click", function () {
+  openModal(avatarModal);
+});
+avatarForm.addEventListener("submit", handleAvatarSubmit);
+
+deleteForm.addEventListener("submit", handleDeleteSubmit);
+
 editProfileBtn.addEventListener("click", function () {
   editProfileNameInput.value = profileNameEl.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
@@ -170,9 +230,61 @@ previewModalCloseBtn.addEventListener("click", function () {
 
 function handleEditProfileSubmit(evt) {
   evt.preventDefault();
-  profileNameEl.textContent = editProfileNameInput.value;
-  profileDescriptionEl.textContent = editProfileDescriptionInput.value;
-  closeModal(editProfileModal);
+
+  //Changes text content to "Saving..."
+  const submitBtn = evt.submitter;
+  // submitBtn.textContent = "Saving...";
+  setButtonText(submitBtn, true, "Save", "Saving...");
+
+  api
+    .editUserInfo({
+      name: editProfileNameInput.value,
+      about: editProfileDescriptionInput.value,
+    })
+    .then((data) => {
+      // TODO - Use data argument instead of the input values
+      profileNameEl.textContent = editProfileNameInput.value;
+      profileDescriptionEl.textContent = editProfileDescriptionInput.value;
+      closeModal(editProfileModal);
+    })
+    .catch(console.error)
+    .finally(() => {
+      //TODO-Call setButtonText instead
+      //Changes text content back to "save"
+      submitBtn.textContent = "Save";
+    });
+}
+
+//TODO - implement loading text for all other form submissions
+
+//Avatar submission handler
+function handleAvatarSubmit(evt) {
+  //TODO Prevent behavior
+  api
+    .editAvatarInfo(avatarInput.value)
+    .then((data) => {
+      console.log(data.avatar);
+      // TODO - make this work
+    })
+    .catch(console.error);
+}
+
+function handleDeleteSubmit(evt) {
+  evt.preventDefault();
+  api
+    .deleteCard(selectedCardId)
+    .then(() => {
+      //TODO
+      //Remove the card from the DOM
+      //Close the modal
+    })
+    .catch(console.error);
+}
+
+function handleDeleteCard(cardElement, data) {
+  selectedCard = cardElement;
+  selectedCardId = cardId;
+  openModal(deleteModal);
 }
 
 editProfileForm.addEventListener("submit", handleEditProfileSubmit);
@@ -189,9 +301,4 @@ newPostForm.addEventListener("submit", function (evt) {
   cardsList.prepend(cardElement);
   newPostForm.reset();
   closeModal(newPostModal);
-});
-
-initialCards.forEach(function (item) {
-  const cardElement = getCardElement(item);
-  cardsList.append(cardElement);
 });
