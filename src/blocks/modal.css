@@ -35,8 +35,8 @@
 .modal__close-btn {
   position: absolute;
   background: transparent url("../images/Close-Icon.svg") center no-repeat;
-  top: 32px;
-  right: 50px;
+  top: -10px;
+  right: -50px;
   width: 40px;
   height: 40px;
   background-size: 35px 35px;
@@ -66,13 +66,14 @@
   padding: 18px 32px;
   border-radius: 8px;
   width: 156px;
+  height: 52px;
   background-color: #212121;
   color: #fcf5e5;
   border: none;
 }
 
 .modal__submit-btn:hover {
-  background: #212121cc;
+  background: #212121;
   cursor: pointer;
 }
 
@@ -87,8 +88,26 @@
 }
 
 .modal__form {
+}
+
+.modal__btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 332px;
+  gap: 20px;
+}
+
+.modal__container_type_delete {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  max-width: 632px;
+}
+
+.modal__form_type_delete {
+  display: flex;
+  justify-content: center;
 }
 
 .modal__label {

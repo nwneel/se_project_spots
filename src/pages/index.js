@@ -48,24 +48,9 @@ const api = new Api({
   },
 });
 
-//Todo - Destructure the second item in the callback of the .then()
-api
-  .getAppInfo()
-  .then((cards) => {
-    cards.forEach(function (item) {
-      const cardElement = getCardElement(item);
-      cardsList.append(cardElement);
-    });
-
-    //TODO-Handle the user's information
-    // - set the src of the avatar image
-    // - set the textContent of both the text elements
-  })
-  .catch(console.error);
-
 //Profile elements
 const editProfileBtn = document.querySelector(".profile__edit-btn");
-const editProfileModal = document.querySelector(".profile__avatar-btn");
+const editProfileModal = document.querySelector("#edit-profile-modal");
 const avatarModalBtn = document.querySelector(".profile__avatar-btn");
 const editProfileCloseBtn = editProfileModal.querySelector(".modal__close-btn");
 const editProfileForm = editProfileModal.querySelector(".modal__form");
@@ -99,14 +84,15 @@ const previewModalCaptionInput = previewModal.querySelector(".modal__caption");
 
 //Avatar form elements
 const avatarModal = document.querySelector("#avatar-modal");
-const avatarForm = avatarModal.querySelector("#avatar");
+const avatarForm = avatarModal.querySelector(".modal__form");
 const avatarSubmitBtn = avatarModal.querySelector(".modal__submit-btn");
 const avatarModalCloseBtn = avatarModal.querySelector(".modal__close-btn");
 const avatarInput = avatarModal.querySelector("#profile-avatar-input");
 
 //Delete form elements
-const deleteModal = document.querySelector("delete-modal");
-const deleteForm = deleteModal.querySelector("modal__form");
+const deleteModal = document.querySelector("#delete-modal");
+const deleteFormCloseBtn = deleteModal.querySelector(".modal__close-btn");
+const deleteForm = deleteModal.querySelector(".modal__form");
 
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
@@ -115,7 +101,9 @@ let selectedCard, selectedCardId;
 
 function getCardElement(data) {
   //This creates a copy of the card template (which was defined on line 66-68). clone node(true)  makes a "deep clone" - meaning it copies the element AND all its children
-  const cardElement = cardTemplate.cloneNode(true);
+  const cardElement = cardTemplate.content
+    .querySelector(".card")
+    .cloneNode(true);
   //This finds the title element inside the cloned card.
   const cardTitleEl = cardElement.querySelector(".card__title");
   //This finds the image element inside the cloned card
@@ -133,7 +121,7 @@ function getCardElement(data) {
 
   const cardDeleteBtnEl = cardElement.querySelector(".card__delete-btn");
   cardDeleteBtnEl.addEventListener("click", () => {
-    cardElement.remove();
+    handleDeleteCard(cardElement, data);
   });
   //Lines 90-96, you have an event listener on each card image that opens the preview modal
   cardImageEL.addEventListener("click", () => {
@@ -156,9 +144,9 @@ function handleLike(evt, id) {
   // 4. In the .then, toggle active class
 }
 
-function handleDeleteCard(evt) {
-  openModal(deleteModal);
-}
+//function handleDeleteCard(evt) {
+// openModal(deleteModal);
+//}
 
 function handleEscapeKey(evt) {
   if (evt.key === "Escape") {
@@ -206,8 +194,9 @@ newPostCloseBtn.addEventListener("click", function () {
 avatarModalBtn.addEventListener("click", function () {
   openModal(avatarModal);
 });
+//Opens Avatar form
 avatarForm.addEventListener("submit", handleAvatarSubmit);
-
+//Opens delete form
 deleteForm.addEventListener("submit", handleDeleteSubmit);
 
 editProfileBtn.addEventListener("click", function () {
@@ -226,6 +215,14 @@ editProfileCloseBtn.addEventListener("click", function () {
 
 previewModalCloseBtn.addEventListener("click", function () {
   closeModal(previewModal);
+});
+
+avatarModalCloseBtn.addEventListener("click", function () {
+  closeModal(avatarModal);
+});
+//exits delete form when clicking on exit
+deleteFormCloseBtn.addEventListener("click", function () {
+  closeModal(deleteModal);
 });
 
 function handleEditProfileSubmit(evt) {
@@ -274,16 +271,17 @@ function handleDeleteSubmit(evt) {
   api
     .deleteCard(selectedCardId)
     .then(() => {
-      //TODO
-      //Remove the card from the DOM
-      //Close the modal
+      //Removes the card from the DOM
+      selectedCard.remove();
+      //Closes the modal
+      closeModal(deleteModal);
     })
     .catch(console.error);
 }
 
 function handleDeleteCard(cardElement, data) {
   selectedCard = cardElement;
-  selectedCardId = cardId;
+  selectedCardId = data.id;
   openModal(deleteModal);
 }
 
@@ -302,3 +300,19 @@ newPostForm.addEventListener("submit", function (evt) {
   newPostForm.reset();
   closeModal(newPostModal);
 });
+
+//Todo - Destructure the second item in the callback of the .then()
+api
+  .getAppInfo()
+  .then(([cards, userData]) => {
+    cards.forEach((item) => {
+      const cardElement = getCardElement(item);
+      cardsList.append(cardElement);
+    });
+
+    //TODO-Handle the user's information
+    // - set the src of the avatar image
+    // - set the textContent of both the text elements
+    profileNameEl;
+  })
+  .catch(console.error);

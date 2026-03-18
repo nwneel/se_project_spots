@@ -1,12 +1,16 @@
 export function setButtonText(
-  btn,
+  button,
   isLoading,
   defaultText = "Save",
   loadingText = "Saving...",
 ) {
   if (isLoading) {
-    // Set the loading text
+    // Sets the loading text
+    button.textContent = loadingText;
+    button.disabled = true;
   } else {
-    // Set not loading text
+    // Sets not loading text
+    button.textContent = defaultText;
+    button.disabled = false;
   }
 }

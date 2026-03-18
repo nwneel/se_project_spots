@@ -12,9 +12,32 @@
   width: 190px;
 }
 
+.profile__avatar-label {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+  line-height: 110.00000000000001%;
+  letter-spacing: 0%;
+  color: rgba(33, 33, 33, 0.7);
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .profile__column {
   display: flex;
   flex-direction: column;
+}
+
+.profile__avatar-title {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  width: 630px;
+  height: 40px;
 }
 
 .profile__add-btn {
@@ -60,7 +83,7 @@
   height: 190px;
 }
 
-.profile__avatar-container:hover .profile__avatar-btn {
+.profile .profile__avatar-container:hover .profile__avatar-btn {
   /* makes button visible when hovering over it */
   visibility: visible;
   cursor: pointer;
@@ -94,6 +117,35 @@
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
   max-width: 420px;
+}
+
+.profile__delete-title {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+}
+
+.profile__delete-btn {
+  background: #212121;
+  width: 156px;
+  height: 52px;
+  padding-top: 18px;
+  padding-right: 32px;
+  padding-bottom: 18px;
+  padding-left: 32px;
+  gap: 8px;
+  opacity: 1;
+  border-radius: 8px;
+  color: #ffffff;
+}
+
+.profile__delete-btn:hover {
+  background: #ff3333;
+  cursor: pointer;
 }
 
 .profile__description {
