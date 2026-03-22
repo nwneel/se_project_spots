@@ -51,6 +51,7 @@ const api = new Api({
 //Profile elements
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const editProfileModal = document.querySelector("#edit-profile-modal");
+const avatarImage = document.querySelector(".profile__avatar");
 const avatarModalBtn = document.querySelector(".profile__avatar-btn");
 const editProfileCloseBtn = editProfileModal.querySelector(".modal__close-btn");
 const editProfileForm = editProfileModal.querySelector(".modal__form");
@@ -86,13 +87,20 @@ const previewModalCaptionInput = previewModal.querySelector(".modal__caption");
 const avatarModal = document.querySelector("#avatar-modal");
 const avatarForm = avatarModal.querySelector(".modal__form");
 const avatarSubmitBtn = avatarModal.querySelector(".modal__submit-btn");
-const avatarModalCloseBtn = avatarModal.querySelector(".modal__close-btn");
+const avatarModalCloseBtn = avatarModal.querySelector(
+  ".modal__edit_avatar_close_button",
+);
 const avatarInput = avatarModal.querySelector("#profile-avatar-input");
 
 //Delete form elements
 const deleteModal = document.querySelector("#delete-modal");
-const deleteFormCloseBtn = deleteModal.querySelector(".modal__close-btn");
+const deleteFormCloseBtn = deleteModal.querySelector(
+  ".modal__avatar_close_button",
+);
 const deleteForm = deleteModal.querySelector(".modal__form");
+const deleteFormCancelBtn = deleteModal.querySelector(
+  ".modal__button_type_cancel",
+);
 
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
@@ -115,13 +123,17 @@ function getCardElement(data) {
   cardTitleEl.textContent = data.name;
 
   const cardLikeBtnEL = cardElement.querySelector(".card__like-btn");
-  cardLikeBtnEL.addEventListener("click", () => {
-    cardLikeBtnEL.classList.toggle("card__like-btn_active");
+  cardLikeBtnEL.addEventListener("click", (evt) => {
+    const isLiked = evt.target.classList.contains("card__like-btn_active");
+
+    api.changeLikeStatus(data._id, isLiked).then(() => {
+      cardLikeBtnEL.classList.toggle("card__like-btn_active");
+    });
   });
 
   const cardDeleteBtnEl = cardElement.querySelector(".card__delete-btn");
   cardDeleteBtnEl.addEventListener("click", () => {
-    handleDeleteCard(cardElement, data);
+    handleDeleteCard(cardElement, data._id);
   });
   //Lines 90-96, you have an event listener on each card image that opens the preview modal
   cardImageEL.addEventListener("click", () => {
@@ -134,19 +146,6 @@ function getCardElement(data) {
 
   return cardElement;
 }
-
-function handleLike(evt, id) {
-  //remove - evt.target.classList.toggle("card__like-button_active");
-  // 1. Check whether card is currently liked or not
-  // const isLiked = ???;
-  // 2. Call the changeLikeStatus method, passing it the appropriate arguments
-  // 3. handle the response (.then and .catch)
-  // 4. In the .then, toggle active class
-}
-
-//function handleDeleteCard(evt) {
-// openModal(deleteModal);
-//}
 
 function handleEscapeKey(evt) {
   if (evt.key === "Escape") {
@@ -194,6 +193,11 @@ newPostCloseBtn.addEventListener("click", function () {
 avatarModalBtn.addEventListener("click", function () {
   openModal(avatarModal);
 });
+//Cancel button for delete modal
+deleteFormCancelBtn.addEventListener("click", function () {
+  closeModal(deleteModal);
+});
+
 //Opens Avatar form
 avatarForm.addEventListener("submit", handleAvatarSubmit);
 //Opens delete form
@@ -227,7 +231,6 @@ deleteFormCloseBtn.addEventListener("click", function () {
 
 function handleEditProfileSubmit(evt) {
   evt.preventDefault();
-
   //Changes text content to "Saving..."
   const submitBtn = evt.submitter;
   // submitBtn.textContent = "Saving...";
@@ -239,31 +242,40 @@ function handleEditProfileSubmit(evt) {
       about: editProfileDescriptionInput.value,
     })
     .then((data) => {
-      // TODO - Use data argument instead of the input values
-      profileNameEl.textContent = editProfileNameInput.value;
-      profileDescriptionEl.textContent = editProfileDescriptionInput.value;
+      //Uses data argument instead of the input values
+      profileNameEl.textContent = data.name;
+      profileDescriptionEl.textContent = data.about;
       closeModal(editProfileModal);
     })
     .catch(console.error)
     .finally(() => {
-      //TODO-Call setButtonText instead
       //Changes text content back to "save"
       submitBtn.textContent = "Save";
     });
 }
 
-//TODO - implement loading text for all other form submissions
-
 //Avatar submission handler
 function handleAvatarSubmit(evt) {
-  //TODO Prevent behavior
+  //Prevents behavior
+  evt.preventDefault();
+  const submitBtn = evt.submitter;
+
+  setButtonText(submitBtn, true, "Save", "Saving...");
   api
-    .editAvatarInfo(avatarInput.value)
+    .editAvatarInfo({ avatar: avatarInput.value })
     .then((data) => {
-      console.log(data.avatar);
-      // TODO - make this work
+      //passes alt and src to avatar image
+      avatarImage.src = data.avatar;
+      avatarImage.alt = data.name;
+      //close modal, reset form
+      closeModal(avatarModal);
+      avatarForm.reset();
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      //Changes text content back to "save"
+      submitBtn.textContent = "Save";
+    });
 }
 
 function handleDeleteSubmit(evt) {
@@ -281,27 +293,39 @@ function handleDeleteSubmit(evt) {
 
 function handleDeleteCard(cardElement, data) {
   selectedCard = cardElement;
-  selectedCardId = data.id;
+  selectedCardId = data;
   openModal(deleteModal);
 }
 
 editProfileForm.addEventListener("submit", handleEditProfileSubmit);
 
+avatarSubmitBtn.addEventListener("submit", handleAvatarSubmit);
+//Allows saving to show up when you click save
 newPostForm.addEventListener("submit", function (evt) {
   evt.preventDefault();
+  const submitBtn = evt.submitter;
 
-  const inputValues = {
-    name: newPostCaptionInput.value,
-    link: newPostImageInput.value,
-  };
-
-  const cardElement = getCardElement(inputValues);
-  cardsList.prepend(cardElement);
-  newPostForm.reset();
-  closeModal(newPostModal);
+  setButtonText(submitBtn, true, "Save", "Saving...");
+  api
+    .addCardInfo({
+      name: newPostCaptionInput.value,
+      link: newPostImageInput.value,
+    })
+    .then((data) => {
+      //Uses data argument instead of the input values
+      const cardElement = getCardElement({ name: data.name, link: data.link });
+      cardsList.prepend(cardElement);
+      newPostForm.reset();
+      closeModal(newPostModal);
+    })
+    .catch(console.error)
+    .finally(() => {
+      //Changes text content back to "save"
+      submitBtn.textContent = "Save";
+    });
 });
 
-//Todo - Destructure the second item in the callback of the .then()
+// Destructures the second item in the callback of the .then()
 api
   .getAppInfo()
   .then(([cards, userData]) => {
@@ -309,10 +333,12 @@ api
       const cardElement = getCardElement(item);
       cardsList.append(cardElement);
     });
-
-    //TODO-Handle the user's information
+    console.log(cards, userData);
     // - set the src of the avatar image
+    avatarImage.src = userData.avatar;
+    avatarImage.alt = userData.name;
     // - set the textContent of both the text elements
-    profileNameEl;
+    profileNameEl.textContent = userData.name;
+    profileDescriptionEl.textContent = userData.about;
   })
   .catch(console.error);

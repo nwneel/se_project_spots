@@ -158,8 +158,8 @@
     </div>
     <div class="modal" id="avatar-modal">
       <div class="modal__container">
-        <button type="button" class="modal__close-btn"></button>
-        <h2 class="profile__avatar-title">Edit profile avatar</h2>
+        <button type="button" class="modal__edit_avatar_close_button"></button>
+        <h2 class="modal__title">Edit profile avatar</h2>
         <form class="modal__form" id="edit-avatar-form" novalidate>
           <label for="profile-avatar-input" class="profile__avatar-label">
             Profile picture
@@ -172,21 +172,33 @@
             />
             <span id="profile-avatar-input-error" class="modal__error"></span>
           </label>
-          <button type="submit" class="modal__submit-btn">Save</button>
+          <button
+            type="submit"
+            class="modal__submit-btn modal__button_type_save modal__btn"
+          >
+            Save
+          </button>
         </form>
       </div>
     </div>
     <!--TODO - style the modal-->
     <div class="modal" id="delete-modal">
       <div class="modal__container modal__container_type_delete">
-        <button type="button" class="modal__close-btn"></button>
-        <h2 class="profile__delete-title">
+        <button type="button" class="modal__avatar_close_button"></button>
+        <h2 class="modal__title">
           Are you sure you want to delete this image?
         </h2>
         <form class="modal__form modal__form_type_delete" id="delete-form">
           <div class="modal__btns">
-            <button type="submit" class="profile__delete-btn">Delete</button>
-            <button type="button" class="modal__submit-btn">Cancel</button>
+            <button type="submit" class="modal__button_type_delete modal__btn">
+              Delete
+            </button>
+            <button
+              type="button"
+              class="modal__submit-btn modal__button_type_cancel modal__btn"
+            >
+              Cancel
+            </button>
           </div>
         </form>
       </div>
