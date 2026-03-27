@@ -81,7 +81,6 @@ const previewModal = document.querySelector("#preview-modal");
 const previewModalCloseBtn = previewModal.querySelector(".modal__close-btn");
 const previewImageEl = previewModal.querySelector(".modal__image");
 const previewModalCaptionInput = previewModal.querySelector(".modal__caption");
-// To Do-Select the name element
 
 //Avatar form elements
 const avatarModal = document.querySelector("#avatar-modal");
@@ -123,12 +122,20 @@ function getCardElement(data) {
   cardTitleEl.textContent = data.name;
 
   const cardLikeBtnEL = cardElement.querySelector(".card__like-btn");
+  //Keeps the like button red when you click on it after refreshing the page
+  if (data.isLiked) {
+    cardLikeBtnEL.classList.add("card__like-btn_active");
+  }
+
   cardLikeBtnEL.addEventListener("click", (evt) => {
     const isLiked = evt.target.classList.contains("card__like-btn_active");
 
-    api.changeLikeStatus(data._id, isLiked).then(() => {
-      cardLikeBtnEL.classList.toggle("card__like-btn_active");
-    });
+    api
+      .changeLikeStatus(data._id, isLiked)
+      .then(() => {
+        cardLikeBtnEL.classList.toggle("card__like-btn_active");
+      })
+      .catch(console.error);
   });
 
   const cardDeleteBtnEl = cardElement.querySelector(".card__delete-btn");
@@ -300,6 +307,26 @@ function handleDeleteCard(cardElement, data) {
 editProfileForm.addEventListener("submit", handleEditProfileSubmit);
 
 avatarSubmitBtn.addEventListener("submit", handleAvatarSubmit);
+//Allow deleting to show up when you click delete
+deleteForm.addEventListener("submit", function (evt) {
+  evt.preventDefault();
+  const deleteBtn = evt.submitter;
+
+  setButtonText(deleteBtn, true, "Delete", "Deleting...");
+  api
+    .deleteCard(selectedCardId)
+    .then((data) => {
+      const deleteElement = getCardElement({ name: data.name });
+      cardsList.prepend(deleteElement);
+      deleteForm.reset();
+      closeModal(deleteModal);
+    })
+    .catch(console.error)
+    .finally(() => {
+      //Changes text content back to delete
+      deleteBtn.textContent = "Delete";
+    });
+});
 //Allows saving to show up when you click save
 newPostForm.addEventListener("submit", function (evt) {
   evt.preventDefault();

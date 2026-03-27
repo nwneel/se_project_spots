@@ -9,7 +9,7 @@ export function setButtonText(
     button.textContent = loadingText;
     button.disabled = true;
   } else {
-    // Sets not loading text
+    // Sets the not loading text
     button.textContent = defaultText;
     button.disabled = false;
   }

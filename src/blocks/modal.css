@@ -153,6 +153,16 @@
   margin: 0 0 32px;
   font-weight: 500;
   line-height: 100%;
+  font-size: 32px;
+}
+
+.modal__delete-title {
+  width: 590px;
+  height: 24px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  margin: 0 0 32px;
+  font-weight: 500;
+  line-height: 100%;
 }
 
 .modal__form {
@@ -252,7 +262,7 @@
   }
 
   .modal__container {
-    padding: 22px 12px 12px;
+    padding: 12px;
   }
 
   .modal__caption {
@@ -282,5 +292,53 @@
   .modal_close_type_preview {
     top: -48px;
     right: 0;
+  }
+  .modal__button_type_cancel {
+    width: 156px;
+  }
+
+  .modal__container_type_delete {
+    height: 208px;
+    justify-content: start;
+    align-items: center;
+  }
+
+  .modal__avatar_close_button {
+    width: 40px;
+    height: 40px;
+    right: 0;
+    top: -48px;
+  }
+
+  .modal__edit_avatar_close_button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+
+  .modal__delete-title {
+    width: 276px;
+    height: 48px;
+    margin: 0;
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    text-align: center;
+  }
+
+  .modal__button_type_delete {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 20px;
+  }
+
+  .modal__btns {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
   }
 }
