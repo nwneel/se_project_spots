@@ -200,6 +200,7 @@ newPostCloseBtn.addEventListener("click", function () {
 avatarModalBtn.addEventListener("click", function () {
   openModal(avatarModal);
 });
+
 //Cancel button for delete modal
 deleteFormCancelBtn.addEventListener("click", function () {
   closeModal(deleteModal);
@@ -207,8 +208,6 @@ deleteFormCancelBtn.addEventListener("click", function () {
 
 //Opens Avatar form
 avatarForm.addEventListener("submit", handleAvatarSubmit);
-//Opens delete form
-deleteForm.addEventListener("submit", handleDeleteSubmit);
 
 editProfileBtn.addEventListener("click", function () {
   editProfileNameInput.value = profileNameEl.textContent;
@@ -308,6 +307,7 @@ editProfileForm.addEventListener("submit", handleEditProfileSubmit);
 
 avatarSubmitBtn.addEventListener("submit", handleAvatarSubmit);
 //Allow deleting to show up when you click delete
+//This what adds the functionality to delete the card
 deleteForm.addEventListener("submit", function (evt) {
   evt.preventDefault();
   const deleteBtn = evt.submitter;
@@ -316,15 +316,13 @@ deleteForm.addEventListener("submit", function (evt) {
   api
     .deleteCard(selectedCardId)
     .then((data) => {
-      const deleteElement = getCardElement({ name: data.name });
-      cardsList.prepend(deleteElement);
-      deleteForm.reset();
+      selectedCard.remove();
       closeModal(deleteModal);
     })
     .catch(console.error)
     .finally(() => {
       //Changes text content back to delete
-      deleteBtn.textContent = "Delete";
+      setButtonText(deleteBtn, false, "Delete", "Deleting...");
     });
 });
 //Allows saving to show up when you click save
@@ -340,7 +338,7 @@ newPostForm.addEventListener("submit", function (evt) {
     })
     .then((data) => {
       //Uses data argument instead of the input values
-      const cardElement = getCardElement({ name: data.name, link: data.link });
+      const cardElement = getCardElement(data);
       cardsList.prepend(cardElement);
       newPostForm.reset();
       closeModal(newPostModal);
