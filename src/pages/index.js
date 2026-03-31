@@ -4,6 +4,7 @@ import {
   enableValidation,
   settings,
   resetValidation,
+  disableButton,
 } from "../scripts/validation.js";
 import { setButtonText } from "../utils/helpers.js";
 
@@ -187,9 +188,6 @@ const postCaptionEl = document.querySelector(".modal__input");
 //adds event listener to make sure a modal opens and closes. To open up an image by clicking it only use a close modal
 //resetValidation helps error message appear when there is an error
 newPostBtn.addEventListener("click", function () {
-  newPostImageInput.value = newPostImageEl.textContent;
-  newPostCaptionInput.value = newPostCaptionEl.textContent;
-  resetValidation(newPostForm, [newPostImageInput, newPostCaptionInput]);
   openModal(newPostModal);
 });
 
@@ -341,6 +339,7 @@ newPostForm.addEventListener("submit", function (evt) {
       const cardElement = getCardElement(data);
       cardsList.prepend(cardElement);
       newPostForm.reset();
+      disableButton(submitBtn, settings);
       closeModal(newPostModal);
     })
     .catch(console.error)

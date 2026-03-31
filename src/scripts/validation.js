@@ -2,7 +2,7 @@ export const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__submit-btn",
-  inactiveButtonClass: ".modal__submit-btn_disabled",
+  inactiveButtonClass: "modal__submit-btn_disabled",
   errorClass: "modal__error",
 };
 
@@ -42,8 +42,9 @@ const toggleButtonState = (inputList, buttonEl, settings) => {
   }
 };
 
-const disableButton = (buttonEl, config) => {
+export const disableButton = (buttonEl, config) => {
   buttonEl.disabled = true;
+  buttonEl.classList.add(config.inactiveButtonClass);
 };
 
 export const resetValidation = (formEl, inputList, settings) => {
