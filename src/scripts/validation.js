@@ -2,7 +2,7 @@ export const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__submit-btn",
-  inactiveButtonClass: "modal__close-btn",
+  inactiveButtonClass: ".modal__submit-btn_disabled",
   errorClass: "modal__error",
 };
 
@@ -38,7 +38,7 @@ const toggleButtonState = (inputList, buttonEl, settings) => {
   } else {
     buttonEl.disabled = false;
     //Removes the disabled class
-    buttonEl.classList.remove(".modal__close-btn");
+    buttonEl.classList.remove(settings.inactiveButtonClass);
   }
 };
 
@@ -57,7 +57,7 @@ const setEventListenters = (formEl, config) => {
   const inputList = Array.from(formEl.querySelectorAll(config.inputSelector));
   const buttonElement = formEl.querySelector(config.submitButtonSelector);
 
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement, settings);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {

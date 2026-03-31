@@ -116,7 +116,7 @@ function getCardElement(data) {
   //This finds the image element inside the cloned card
   const cardImageEL = cardElement.querySelector(".card__image");
 
-  //TODO - if the card is liked, set the active class on the card
+  //Set the active class on the card
   cardImageEL.src = data.link;
   cardImageEL.alt = data.name;
   cardTitleEl.textContent = data.name;
@@ -256,7 +256,7 @@ function handleEditProfileSubmit(evt) {
     .catch(console.error)
     .finally(() => {
       //Changes text content back to "save"
-      submitBtn.textContent = "Save";
+      setButtonText(submitBtn, false);
     });
 }
 
@@ -280,7 +280,7 @@ function handleAvatarSubmit(evt) {
     .catch(console.error)
     .finally(() => {
       //Changes text content back to "save"
-      submitBtn.textContent = "Save";
+      setButtonText(submitBtn, false);
     });
 }
 
@@ -346,7 +346,7 @@ newPostForm.addEventListener("submit", function (evt) {
     .catch(console.error)
     .finally(() => {
       //Changes text content back to "save"
-      submitBtn.textContent = "Save";
+      setButtonText(submitBtn, false);
     });
 });
 

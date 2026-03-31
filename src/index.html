@@ -99,7 +99,12 @@
                 class="modal__error"
               ></span>
             </label>
-            <button type="submit" class="modal__submit-btn">Save</button>
+            <button
+              type="submit"
+              class="modal__submit-btn modal__submit-btn_disabled"
+            >
+              Save
+            </button>
           </form>
         </div>
       </div>
@@ -138,7 +143,7 @@
             <button
               type="submit"
               id="new-post-submit"
-              class="modal__submit-btn"
+              class="modal__submit-btn modal__submit-btn_disabled"
             >
               Save
             </button>
@@ -175,14 +180,13 @@
           </label>
           <button
             type="submit"
-            class="modal__submit-btn modal__button_type_save modal__btn"
+            class="modal__submit-btn modal__submit-btn_disabled modal__button_type_save modal__btn"
           >
             Save
           </button>
         </form>
       </div>
     </div>
-    <!--TODO - style the modal-->
     <div class="modal" id="delete-modal">
       <div class="modal__container modal__container_type_delete">
         <button type="button" class="modal__avatar_close_button"></button>
@@ -196,7 +200,7 @@
             </button>
             <button
               type="button"
-              class="modal__submit-btn modal__button_type_cancel modal__btn"
+              class="modal__submit-btn modal__submit-btn_disabled modal__button_type_cancel modal__btn"
             >
               Cancel
             </button>

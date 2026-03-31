@@ -27,6 +27,7 @@
 .profile__column {
   display: flex;
   flex-direction: column;
+  margin-left: 20px;
 }
 
 .profile__add-btn {
@@ -89,6 +90,7 @@
   line-height: 100%;
   font-size: 16px;
   border: none;
+  padding: 0;
 }
 
 .profile__edit-btn:hover {
