@@ -2,7 +2,7 @@ export const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__submit-btn",
-  inactiveButtonClass: "modal__close-btn",
+  inactiveButtonClass: "modal__submit-btn_disabled",
   errorClass: "modal__error",
 };
 
@@ -38,15 +38,16 @@ const toggleButtonState = (inputList, buttonEl, settings) => {
   } else {
     buttonEl.disabled = false;
     //Removes the disabled class
-    buttonEl.classList.remove(".modal__close-btn");
+    buttonEl.classList.remove(settings.inactiveButtonClass);
   }
 };
 
-const disableButton = (buttonEl, config) => {
+export const disableButton = (buttonEl, config) => {
   buttonEl.disabled = true;
+  buttonEl.classList.add(config.inactiveButtonClass);
 };
 
-const resetValidation = (formEl, inputList, settings) => {
+export const resetValidation = (formEl, inputList, settings) => {
   console.log("resetting validation");
   inputList.forEach((input) => {
     hideInputError(formEl, input);
@@ -54,16 +55,15 @@ const resetValidation = (formEl, inputList, settings) => {
 };
 
 const setEventListenters = (formEl, config) => {
-  const inputList = Array.from(formEl.querySelectorAll(config.inputSelector)); //
-  const buttonElement = formEl.querySelector(config.submitButtonSelector); //
+  const inputList = Array.from(formEl.querySelectorAll(config.inputSelector));
+  const buttonElement = formEl.querySelector(config.submitButtonSelector);
 
-  toggleButtonState(inputList, buttonElement); //
+  toggleButtonState(inputList, buttonElement, settings);
 
   inputList.forEach((inputElement) => {
-    //
     inputElement.addEventListener("input", () => {
       checkInputValidity(formEl, inputElement, settings);
-      toggleButtonState(inputList, buttonElement, settings); //
+      toggleButtonState(inputList, buttonElement, settings);
     });
   });
 };

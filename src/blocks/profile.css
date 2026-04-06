@@ -12,9 +12,22 @@
   width: 190px;
 }
 
+.profile__avatar-label {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+  line-height: 110.00000000000001%;
+  letter-spacing: 0%;
+  color: rgba(33, 33, 33, 0.7);
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .profile__column {
   display: flex;
   flex-direction: column;
+  margin-left: 20px;
 }
 
 .profile__add-btn {
@@ -35,6 +48,39 @@
   opacity: 0.8;
 }
 
+.profile__avatar-btn {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  visibility: hidden;
+  border: none;
+}
+
+/* TODO - set content of ::after element to "" */
+/* TODO - finish mobile avatar button styles */
+
+.profile__avatar-btn::after {
+  content: "Edit Avatar";
+  color: #ffffff;
+}
+
+.profile__avatar-container {
+  position: relative;
+  width: 190px;
+  height: 190px;
+}
+
+.profile .profile__avatar-container:hover .profile__avatar-btn {
+  /* makes button visible when hovering over it */
+  visibility: visible;
+  cursor: pointer;
+  /* Makes the edit avatar button blend in with the picture */
+  background-color: transparent;
+}
+
 .profile__edit-btn {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   display: flex;
@@ -44,6 +90,7 @@
   line-height: 100%;
   font-size: 16px;
   border: none;
+  padding: 0;
 }
 
 .profile__edit-btn:hover {
@@ -61,6 +108,35 @@
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
   max-width: 420px;
+}
+
+.profile__delete-title {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+}
+
+.profile__delete-btn {
+  background: #212121;
+  width: 156px;
+  height: 52px;
+  padding-top: 18px;
+  padding-right: 32px;
+  padding-bottom: 18px;
+  padding-left: 32px;
+  gap: 8px;
+  opacity: 1;
+  border-radius: 8px;
+  color: #ffffff;
+}
+
+.profile__delete-btn:hover {
+  background: #ff3333;
+  cursor: pointer;
 }
 
 .profile__description {
